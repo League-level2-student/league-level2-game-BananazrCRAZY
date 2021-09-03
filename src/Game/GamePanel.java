@@ -1,31 +1,43 @@
 package Game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-
 import javax.imageio.ImageIO;
+
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int MENU = 0;
 	final int GAME = 1;
 	final int GAMEOVER = 2;
-	final int VICTORY = 3;
-	final int PAUSE = 4;
-	final int INSTRUCTIONS = 5;
+	final int PAUSE = 3;
+	final int INSTRUCTIONS = 4;
 	
 	int currentState = 0;
+	Font titleF;
+	Font subTextF;
+	Timer frameDraw;
 	
 	public static BufferedImage image;
 	public static boolean needImage = true;
 	public static boolean gotImage = false;
 	GamePanel() {
-		
+		titleF = new Font("Arial", Font.PLAIN, 50);
+		 subTextF = new Font("Arial", Font.PLAIN, 21);
+		 
+		 if (needImage) {
+			    loadImage ("");
+			}
+		 
+		 frameDraw = new Timer(1000/60,this);
+		 frameDraw.start();
 	}
 	
 	@Override
@@ -36,8 +48,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		    drawGameState(g);
 		}else if(currentState == GAMEOVER){
 		    drawGameoverState(g);
-		} else if (currentState == VICTORY){
-			drawVictoryState(g);
 		} else if (currentState == PAUSE){
 			drawPauseState(g);
 		} else if (currentState == INSTRUCTIONS) {
@@ -54,9 +64,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void updateGameoverState() {
 
 	}
-	void updateVictoryState() {
-		
-	}
 	void updatePauseState() {
 		
 	}
@@ -71,9 +78,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 	void drawGameoverState(Graphics g) {
-		
-	}
-	void drawVictoryState(Graphics g) {
 		
 	}
 	void drawPauseState(Graphics g) {
